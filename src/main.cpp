@@ -19,7 +19,7 @@ void close() {
 
 int showmenu(SDL_Renderer *renderer, TTF_Font *font) {
     int x, y;
-    bool isMenu = true;
+    bool isMenu;
     const int NUMMENU = 4;
     int width = SCREEN_WIDTH, height = SCREEN_HEIGHT;
 
@@ -50,19 +50,10 @@ int showmenu(SDL_Renderer *renderer, TTF_Font *font) {
                 }
                 close();
                 return 1;
-            case SDL_KEYDOWN:
-                if (event.key.keysym.sym == SDLK_ESCAPE) {
-                    for (auto & menu : menus) {
-                        SDL_FreeSurface(menu);
-                    }
-                    close();
-                    return 1;
-                }
         }
         for (int i = 0; i < NUMMENU; ++i) {
             if(selected[i] && i == 0){
-                game.handleEvent(&event);
-                isMenu = false;
+                game.handleEvent(&event, &selected[i]);
                 break;
             }
         }
@@ -98,9 +89,29 @@ int showmenu(SDL_Renderer *renderer, TTF_Font *font) {
                         }
                     }
                     break;
+                case SDL_KEYDOWN:
+                    if (event.key.keysym.sym == SDLK_ESCAPE) {
+                        for (auto & menu : menus) {
+                            SDL_FreeSurface(menu);
+                        }
+                        close();
+                        return 1;
+                    }
             }
         }
+        isMenu = true;
+        for(int i = 0; i< NUMMENU;++i){
+            if(selected[i]){
+                isMenu = false;
+                break;
+            }
+        }
+
         if(isMenu){
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+            // Clear the entire screen to our selected color.
+            SDL_RenderClear(renderer);
             for (int i = 0; i < NUMMENU; i += 1) {
                 SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, menus[i]);
                 SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);

@@ -10,9 +10,13 @@ Game::Game(SDL_Renderer * renderer){
     plank2.init(gRenderer);
 };
 
-void Game::handleEvent(SDL_Event * e) {
+void Game::handleEvent(SDL_Event * e, bool * isScene) {
 
     while (SDL_PollEvent(e)) {
+        if(e->type == SDL_KEYDOWN && e->key.keysym.sym == SDLK_ESCAPE){
+            *isScene = false;
+            break;
+        }
         plank1.handleEvent(*e, 0);
         plank2.handleEvent(*e, 1);
     }

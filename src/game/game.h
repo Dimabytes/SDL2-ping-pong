@@ -16,7 +16,7 @@ class Game {
 public:
     Game(SDL_Renderer * renderer);
 
-    void handleEvent(SDL_Event * e);
+    void handleEvent(SDL_Event * e, bool * isScene);
 };
 
 #endif //PINGPONG_GAME_H

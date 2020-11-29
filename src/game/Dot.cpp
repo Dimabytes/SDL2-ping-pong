@@ -26,7 +26,6 @@ void Dot::move(SDL_Rect &p1, SDL_Rect &p2) {
     dotCollider.y = posY;
     posX = posX + velX;
     dotCollider.x = posX;
-    std::cout << SCREEN_WIDTH << std::endl;
 
     if (posX < 0 || (posX + width) > SCREEN_WIDTH) {
         velX = -1 * velX;
