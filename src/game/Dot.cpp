@@ -17,7 +17,7 @@ Dot::Dot() {
     velY = 2;
 }
 
-bool Dot::init(SDL_Renderer *gRenderer) {
+bool Dot::init() {
     return gDotTexture.loadFromFile("img/dot.bmp", gRenderer);
 }
 
@@ -45,7 +45,12 @@ void Dot::move(SDL_Rect &p1, SDL_Rect &p2) {
         velY = -1 * velY;
         std::cout << velX << "," << velY << "\n";
     }
-
+    if(posX < 15){
+        profile1.points -=1;
+    }
+    if(posX > SCREEN_WIDTH - 35){
+        profile2.points -=1;
+    }
     if (posX < 15 || posX > SCREEN_WIDTH - 35) {
         posX = SCREEN_WIDTH / 2;
         posY = rand() % SCREEN_HEIGHT;
@@ -72,7 +77,7 @@ void Dot::move(SDL_Rect &p1, SDL_Rect &p2) {
 }
 
 
-void Dot::render(SDL_Renderer *gRenderer) {
+void Dot::render() {
     gDotTexture.render(posX, posY, gRenderer);
 }
 

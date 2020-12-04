@@ -11,10 +11,8 @@ class Game {
     Plank plank1 = Plank(20, 480 / 2 - 35);
     Plank plank2 = Plank(640 - 40, 480 / 2 - 35);
 
-    SDL_Renderer * gRenderer;
-
 public:
-    Game(SDL_Renderer * renderer);
+    Game();
 
     void handleEvent(SDL_Event * e, bool * isScene);
 };

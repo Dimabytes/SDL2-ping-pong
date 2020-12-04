@@ -1,13 +1,13 @@
 #include "game.h"
 #include "Plank.h"
 #include "../globals.h"
+#include "../utils.h"
 #include "SDL.h"
 
-Game::Game(SDL_Renderer * renderer){
-    gRenderer = renderer;
-    dot.init(gRenderer);
-    plank1.init(gRenderer);
-    plank2.init(gRenderer);
+Game::Game(){
+    dot.init();
+    plank1.init();
+    plank2.init();
 };
 
 void Game::handleEvent(SDL_Event * e, bool * isScene) {
@@ -24,17 +24,20 @@ void Game::handleEvent(SDL_Event * e, bool * isScene) {
     plank1.move();
     plank2.move();
     dot.move(plank1.plankCollider, plank2.plankCollider);
-
     SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
     SDL_RenderClear(gRenderer);
-
-    SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
     for (int i = 0; i < SCREEN_HEIGHT; i += 4) {
         SDL_RenderDrawPoint(gRenderer, SCREEN_WIDTH / 2, i);
     }
 
-    plank1.render(gRenderer);
-    plank2.render(gRenderer);
-    dot.render(gRenderer);
+    renderText(profile1.name, 20, 5, CLR_WHITE);
+    renderText(profile1.points, 20, 30, CLR_WHITE);
+
+    renderText(profile2.name, SCREEN_WIDTH - 100, 5, CLR_WHITE);
+    renderText(profile2.points, SCREEN_WIDTH - 100, 30, CLR_WHITE);
+
+    plank1.render();
+    plank2.render();
+    dot.render();
 }

@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
+set(CMAKE_CXX_STANDARD 11)
 project(pingPong)
 
 # add SDL2
@@ -24,7 +25,5 @@ target_include_directories(pingPong PRIVATE ${ProjectINCLUDE_DIRS})
 target_link_libraries(pingPong ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_TTF_LIBRARIES})
 
 target_include_directories(pingPong PRIVATE ${project_INCLUDE_DIRS})
-
-set(CMAKE_CXX_STANDARD 14)
 
 

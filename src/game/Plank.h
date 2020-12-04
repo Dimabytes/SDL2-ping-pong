@@ -17,13 +17,13 @@ public:
 
     Plank(int x, int y);
 
-    bool init(SDL_Renderer *gRenderer);
+    bool init();
 
     void handleEvent(SDL_Event &e, int p);
 
     void move();
 
-    void render(SDL_Renderer * gRenderer);
+    void render();
 };
 
 #endif

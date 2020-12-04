@@ -18,10 +18,10 @@ public:
 
     Dot();
 
-    bool init(SDL_Renderer * gRenderer);
+    bool init();
 
     void move(SDL_Rect &p1, SDL_Rect &p2);
 
-    void render(SDL_Renderer* gRenderer);
+    void render();
 
 };

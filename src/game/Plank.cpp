@@ -15,7 +15,7 @@ Plank::Plank(int x, int y) {
     plankCollider.h = height;
 }
 
-bool Plank::init(SDL_Renderer *gRenderer) {
+bool Plank::init() {
     return gPlankTexture.loadFromFile("img/plank.bmp", gRenderer);
 }
 
@@ -67,6 +67,6 @@ void Plank::move() {
     }
 }
 
-void Plank::render(SDL_Renderer *gRenderer) {
+void Plank::render() {
     gPlankTexture.render(posX, posY, gRenderer);
 }

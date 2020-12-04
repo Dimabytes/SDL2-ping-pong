@@ -5,9 +5,8 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "globals.h"
-
-SDL_Window *gWindow = nullptr;
-SDL_Renderer *gRenderer = nullptr;
+#include "login.h"
+#include "utils.h"
 
 void close() {
     SDL_DestroyRenderer(gRenderer);
@@ -17,7 +16,7 @@ void close() {
     SDL_Quit();
 }
 
-int showmenu(SDL_Renderer *renderer, TTF_Font *font) {
+int showmenu() {
     int x, y;
     bool isMenu;
     const int NUMMENU = 4;
@@ -31,10 +30,10 @@ int showmenu(SDL_Renderer *renderer, TTF_Font *font) {
                           {0,   0,   255}};
     SDL_Rect pos[NUMMENU];
 
-    Game game(gRenderer);
+    Game game;
 
     for (int i = 0; i < NUMMENU; ++i) {
-        menus[i] = TTF_RenderUTF8_Solid(font, labels[i], color[0]);
+        menus[i] = TTF_RenderUTF8_Solid(font25, labels[i], color[0]);
         pos[i].x = 30;
         pos[i].y = 100 + i * 60;
         pos[i].w = menus[i]->clip_rect.w;
@@ -42,7 +41,7 @@ int showmenu(SDL_Renderer *renderer, TTF_Font *font) {
     }
 
     SDL_Event event;
-    while (1) {
+    while (true) {
         switch (event.type) {
             case SDL_QUIT:
                 for (auto & menu : menus) {
@@ -57,6 +56,20 @@ int showmenu(SDL_Renderer *renderer, TTF_Font *font) {
                 break;
             }
         }
+        isMenu = true;
+        for(bool i : selected){
+            if(i){
+                isMenu = false;
+                break;
+            }
+        }
+
+        SDL_RenderPresent(gRenderer);
+
+        if(!isMenu){
+            continue;
+        }
+
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_MOUSEMOTION:
@@ -68,12 +81,12 @@ int showmenu(SDL_Renderer *renderer, TTF_Font *font) {
                             if (!hovered[i]) {
                                 hovered[i] = true;
                                 SDL_FreeSurface(menus[i]);
-                                menus[i] = TTF_RenderText_Solid(font, labels[i], color[1]);
+                                menus[i] = TTF_RenderText_Solid(font25, labels[i], color[1]);
                             }
                         } else if (hovered[i]) {
                             hovered[i] = false;
                             SDL_FreeSurface(menus[i]);
-                            menus[i] = TTF_RenderText_Solid(font, labels[i], color[0]);
+                            menus[i] = TTF_RenderText_Solid(font25, labels[i], color[0]);
                         }
                     }
                     break;
@@ -99,27 +112,16 @@ int showmenu(SDL_Renderer *renderer, TTF_Font *font) {
                     }
             }
         }
-        isMenu = true;
-        for(int i = 0; i< NUMMENU;++i){
-            if(selected[i]){
-                isMenu = false;
-                break;
-            }
-        }
 
-        if(isMenu){
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
-            // Clear the entire screen to our selected color.
-            SDL_RenderClear(renderer);
-            for (int i = 0; i < NUMMENU; i += 1) {
-                SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, menus[i]);
-                SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-                SDL_Rect rectGroup = {pos[i].x, pos[i].y, width, height};
-                SDL_RenderCopy(renderer, texture, nullptr, &rectGroup);
-            }
+        SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
+        SDL_RenderClear(gRenderer);
+        for (int i = 0; i < NUMMENU; i += 1) {
+            SDL_Texture *texture = SDL_CreateTextureFromSurface(gRenderer, menus[i]);
+            SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+            SDL_Rect rectGroup = {pos[i].x, pos[i].y, width, height};
+            SDL_RenderCopy(gRenderer, texture, nullptr, &rectGroup);
+            SDL_DestroyTexture(texture);
         }
-        SDL_RenderPresent(gRenderer);
     }
 }
 
@@ -134,7 +136,6 @@ bool init() {
         if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
             printf("Warning: Linear texture filtering not enabled!");
         }
-
         gWindow = SDL_CreateWindow("VOENMEH BETTER THAN ALL", 50, 50, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if (gWindow == nullptr) {
             printf("failed to create window\n");
@@ -144,8 +145,6 @@ bool init() {
             if (gRenderer == nullptr) {
                 printf("failed to create renderer\n");
                 success = false;
-            } else {
-                SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
             }
         }
     }
@@ -159,9 +158,10 @@ int main() {
         return 1;
     }
     TTF_Init();
-    TTF_Font *font;
-    font = TTF_OpenFont("fonts/font.ttf", 25);
-    showmenu(gRenderer, font);
+    font25 = TTF_OpenFont("fonts/font.ttf", 25);
+
+    login();
+    showmenu();
     close();
     return 0;
 }
