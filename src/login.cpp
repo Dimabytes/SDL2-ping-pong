@@ -35,6 +35,8 @@ void inputName(const std::string& label, Profile* profile) {
             SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
             SDL_Rect rectGroup = {SCREEN_WIDTH / 2 - width / 2, SCREEN_HEIGHT / 2 - height / 2, width, height};
             SDL_RenderCopy(gRenderer, texture, nullptr, &rectGroup);
+            SDL_DestroyTexture(texture);
+            SDL_FreeSurface(surfaceGroup);
         }
 
         SDL_RenderPresent( gRenderer );
