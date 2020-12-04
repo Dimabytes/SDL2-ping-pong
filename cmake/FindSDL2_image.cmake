@@ -12,9 +12,6 @@ if(NOT SDL2_FOUND)
   unset(SDL2_IMAGE_SDL2_NOT_FOUND)
 endif()
 
-
-# Define options for searching SDL2_image Library in a custom path
-
 set(SDL2_IMAGE_PATH "" CACHE STRING "Custom SDL2_image Library path")
 
 set(_SDL2_IMAGE_NO_DEFAULT_PATH OFF)
@@ -62,8 +59,6 @@ find_library(SDL2_IMAGE_LIBRARY
   PATHS ${SDL2_IMAGE_PATH}
   DOC "Where the SDL2_image Library can be found"
 )
-
-# Read SDL2_image version
 if(SDL2_IMAGE_INCLUDE_DIR AND EXISTS "${SDL2_IMAGE_INCLUDE_DIR}/SDL_image.h")
   file(STRINGS "${SDL2_IMAGE_INCLUDE_DIR}/SDL_image.h" SDL2_IMAGE_VERSION_MAJOR_LINE REGEX "^#define[ \t]+SDL_IMAGE_MAJOR_VERSION[ \t]+[0-9]+$")
   file(STRINGS "${SDL2_IMAGE_INCLUDE_DIR}/SDL_image.h" SDL2_IMAGE_VERSION_MINOR_LINE REGEX "^#define[ \t]+SDL_IMAGE_MINOR_VERSION[ \t]+[0-9]+$")
@@ -98,7 +93,6 @@ mark_as_advanced(SDL2_IMAGE_PATH
 
 if(SDL2_IMAGE_FOUND)
 
-  # SDL2::Image target
   if(SDL2_IMAGE_LIBRARY AND NOT TARGET SDL2::Image)
     add_library(SDL2::Image UNKNOWN IMPORTED)
     set_target_properties(SDL2::Image PROPERTIES
