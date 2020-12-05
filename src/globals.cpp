@@ -13,3 +13,5 @@ Profile profile2;
 TTF_Font *font25;
 
 SDL_Color CLR_WHITE = {255, 255, 255};
+
+SDL_Texture *background;

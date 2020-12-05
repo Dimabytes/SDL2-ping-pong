@@ -20,10 +20,10 @@ public:
     void free();
 
     void render(int x, int y, SDL_Renderer *gRenderer);
-
-private:
-    SDL_Texture *mTexture;
     int mWidth;
     int mHeight;
+private:
+    SDL_Texture *mTexture;
+
 };
 #endif

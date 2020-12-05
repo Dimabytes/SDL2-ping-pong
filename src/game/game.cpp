@@ -26,15 +26,12 @@ void Game::handleEvent(SDL_Event * e, bool * isScene) {
         plank2.handleEvent(*e, 1);
     }
 
+    SDL_RenderClear(gRenderer);
+    drawBackground();
+
     plank1.move();
     plank2.move();
     dot.move(plank1.plankCollider, plank2.plankCollider);
-    SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
-    SDL_RenderClear(gRenderer);
-
-    for (int i = 0; i < SCREEN_HEIGHT; i += 4) {
-        SDL_RenderDrawPoint(gRenderer, SCREEN_WIDTH / 2, i);
-    }
 
     renderText(profile1.name, 20, 5, CLR_WHITE);
     renderText(profile1.points, 20, 30, CLR_WHITE);

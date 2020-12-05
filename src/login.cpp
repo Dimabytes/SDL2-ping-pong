@@ -26,8 +26,10 @@ void inputName(const std::string& label, Profile* profile) {
             }
         }
 
-        SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
         SDL_RenderClear(gRenderer);
+
+        drawBackground();
+
         renderText(label, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 60, CLR_WHITE);
         if ( !profile->name.empty() ) {
             width = SCREEN_WIDTH, height = SCREEN_HEIGHT;

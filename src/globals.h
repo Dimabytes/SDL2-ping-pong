@@ -17,6 +17,7 @@ extern TTF_Font *font25;
 
 extern SDL_Color CLR_WHITE;
 
+extern SDL_Texture *background;
 
 
 #endif //PINGPONG_GLOBALS_H

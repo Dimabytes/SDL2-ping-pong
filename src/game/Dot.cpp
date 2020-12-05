@@ -18,7 +18,11 @@ Dot::Dot() {
 }
 
 bool Dot::init() {
-    return gDotTexture.loadFromFile("img/dot.bmp", gRenderer);
+    gDotTexture.loadFromFile("img/dot.png", gRenderer);
+    gDotTexture.mWidth = 30;
+    gDotTexture.mHeight = 30;
+    return true;
+
 }
 
 void Dot::move(SDL_Rect &p1, SDL_Rect &p2) {

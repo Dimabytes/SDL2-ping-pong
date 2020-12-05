@@ -5,6 +5,8 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include "globals.h"
+#include "utils.h"
+#include "choiceBackground/choiceBackground.h"
 #include "login.h"
 #include "utils.h"
 
@@ -31,6 +33,7 @@ int showmenu() {
     SDL_Rect pos[NUMMENU];
 
     Game game;
+    ChoiceBackground choiceBackground;
 
     for (int i = 0; i < NUMMENU; ++i) {
         menus[i] = TTF_RenderUTF8_Solid(font25, labels[i], color[0]);
@@ -53,6 +56,10 @@ int showmenu() {
         for (int i = 0; i < NUMMENU; ++i) {
             if(selected[i] && i == 3){
                 game.handleEvent(&event, &selected[i]);
+                break;
+            }
+            if(selected[i] && i == 2){
+                choiceBackground.handleEvent(event, &selected[i]);
                 break;
             }
         }
@@ -117,8 +124,8 @@ int showmenu() {
             }
         }
 
-        SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
         SDL_RenderClear(gRenderer);
+        drawBackground();
         for (int i = 0; i < NUMMENU; i += 1) {
             SDL_Texture *texture = SDL_CreateTextureFromSurface(gRenderer, menus[i]);
             SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
@@ -161,6 +168,7 @@ int main() {
         printf("FAILED TO INITIALIZE\n");
         return 1;
     }
+    setBackground("img/voenmeh.jpg");
     TTF_Init();
     font25 = TTF_OpenFont("fonts/font.ttf", 25);
 

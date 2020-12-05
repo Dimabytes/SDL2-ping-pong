@@ -1,4 +1,5 @@
 #include "SDL_ttf.h"
+#include "SDL_image.h"
 #include "globals.h"
 #include <string>
 #include <sstream>
@@ -28,4 +29,15 @@ void renderText(int text, int x, int y, SDL_Color colorGroup) {
     renderText(text, x, y, colorGroup, font25);
 }
 
-#include "utils.h"
+void setBackground (const std::string &filename) {
+    SDL_Surface *image;
+    image = IMG_Load(filename.c_str());
+    background = SDL_CreateTextureFromSurface (gRenderer, image);
+    SDL_FreeSurface (image);
+
+}
+
+void drawBackground() {
+    SDL_Rect rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+    SDL_RenderCopy (gRenderer, background, NULL, &rect);
+}

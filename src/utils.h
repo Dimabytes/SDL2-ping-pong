@@ -10,4 +10,8 @@ void renderText(int text, int x, int y, SDL_Color colorGroup, TTF_Font *font);
 
 void renderText(int text, int x, int y, SDL_Color colorGroup);
 
+void setBackground (const std::string &filename);
+
+void drawBackground();
+
 #endif //PINGPONG_UTILS_H
