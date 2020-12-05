@@ -2,7 +2,7 @@
 
 
 int SCREEN_WIDTH = 640;
-int SCREEN_HEIGHT = 640;
+int SCREEN_HEIGHT = 480;
 
 SDL_Window *gWindow = nullptr;
 SDL_Renderer *gRenderer = nullptr;

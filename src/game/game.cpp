@@ -8,7 +8,12 @@ Game::Game(){
     dot.init();
     plank1.init();
     plank2.init();
-};
+}
+
+void Game::restart() {
+    profile1.points = 10;
+    profile2.points = 10;
+}
 
 void Game::handleEvent(SDL_Event * e, bool * isScene) {
 
@@ -40,4 +45,17 @@ void Game::handleEvent(SDL_Event * e, bool * isScene) {
     plank1.render();
     plank2.render();
     dot.render();
+
+    if(profile1.points < 1){
+        profile1.updateRecord(profile1.record - 1);
+        profile2.updateRecord(profile2.record + 1);
+        *isScene = false;
+    }
+
+    if(profile2.points < 1){
+        profile2.updateRecord(profile1.record - 1);
+        profile1.updateRecord(profile2.record + 1);
+        *isScene = false;
+    }
+
 }

@@ -51,7 +51,7 @@ int showmenu() {
                 return 1;
         }
         for (int i = 0; i < NUMMENU; ++i) {
-            if(selected[i] && i == 0){
+            if(selected[i] && i == 3){
                 game.handleEvent(&event, &selected[i]);
                 break;
             }
@@ -99,6 +99,10 @@ int showmenu() {
                         if (x >= pos[i].x && x <= pos[i].x + pos[i].w &&
                             y >= pos[i].y && y <= pos[i].y + pos[i].h) {
                             selected[i] = true;
+
+                            if(i == 3){
+                                game.restart();
+                            }
                         }
                     }
                     break;

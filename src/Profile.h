@@ -10,6 +10,9 @@ public:
     std::string name;
     int points;
     int record;
+
+    void initRecord();
+    void updateRecord(int);
 };
 
 

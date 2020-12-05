@@ -1,6 +1,7 @@
 #include "globals.h"
 #include "login.h"
 #include "utils.h"
+#include <iostream>
 #include <string>
 
 void inputName(const std::string& label, Profile* profile) {
@@ -46,5 +47,7 @@ void inputName(const std::string& label, Profile* profile) {
 void login() {
     inputName("Игрок 1:", &profile1);
     inputName("Игрок 2:", &profile2);
+    profile1.initRecord();
+    profile2.initRecord();
 }
 

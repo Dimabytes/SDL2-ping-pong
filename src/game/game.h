@@ -13,7 +13,7 @@ class Game {
 
 public:
     Game();
-
+    void restart();
     void handleEvent(SDL_Event * e, bool * isScene);
 };
 
