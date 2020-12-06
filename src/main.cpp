@@ -7,8 +7,8 @@
 #include "globals.h"
 #include "utils.h"
 #include "choiceBackground/choiceBackground.h"
+#include "rules/rules.h"
 #include "login.h"
-#include "utils.h"
 
 void close() {
     SDL_DestroyRenderer(gRenderer);
@@ -24,12 +24,11 @@ int showmenu() {
     const int NUMMENU = 4;
     int width = SCREEN_WIDTH, height = SCREEN_HEIGHT;
 
-    const char *labels[NUMMENU] = {"Rules", "Scores", "Change background", "Play"};
+    const char *labels[NUMMENU] = {"Правила игры", "Рекорды", "Смена заднего фона", "Играть"};
     SDL_Surface *menus[NUMMENU];
     bool hovered[NUMMENU] = {false, false, false, false};
     bool selected[NUMMENU] = {false, false, false, false};
-    SDL_Color color[2] = {{255, 255, 255},
-                          {0,   0,   255}};
+    SDL_Color color[2] = {CLR_WHITE, CLR_GREEN};
     SDL_Rect pos[NUMMENU];
 
     Game game;
@@ -54,6 +53,10 @@ int showmenu() {
                 return 1;
         }
         for (int i = 0; i < NUMMENU; ++i) {
+            if(selected[i] && i == 0){
+                rulesHandleEvent(event, &selected[i]);
+                break;
+            }
             if(selected[i] && i == 3){
                 game.handleEvent(&event, &selected[i]);
                 break;
@@ -88,12 +91,12 @@ int showmenu() {
                             if (!hovered[i]) {
                                 hovered[i] = true;
                                 SDL_FreeSurface(menus[i]);
-                                menus[i] = TTF_RenderText_Solid(font25, labels[i], color[1]);
+                                menus[i] = TTF_RenderUTF8_Solid(font25, labels[i], color[1]);
                             }
                         } else if (hovered[i]) {
                             hovered[i] = false;
                             SDL_FreeSurface(menus[i]);
-                            menus[i] = TTF_RenderText_Solid(font25, labels[i], color[0]);
+                            menus[i] = TTF_RenderUTF8_Solid(font25, labels[i], color[0]);
                         }
                     }
                     break;
@@ -171,6 +174,7 @@ int main() {
     setBackground("img/voenmeh.jpg");
     TTF_Init();
     font25 = TTF_OpenFont("fonts/font.ttf", 25);
+    font15 = TTF_OpenFont("fonts/font.ttf", 15);
 
     login();
     showmenu();

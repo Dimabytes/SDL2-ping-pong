@@ -1,6 +1,5 @@
 #include "choiceBackground.h"
 #include "../utils.h"
-#include "iostream"
 
 ChoiceBackground::ChoiceBackground() {
     for (int i = 0; i < NUMMENU; ++i) {

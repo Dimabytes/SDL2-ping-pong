@@ -14,8 +14,12 @@ extern Profile profile1;
 extern Profile profile2;
 
 extern TTF_Font *font25;
+extern TTF_Font *font15;
 
 extern SDL_Color CLR_WHITE;
+extern SDL_Color CLR_BLACK;
+extern SDL_Color CLR_ORANGE;
+extern SDL_Color CLR_GREEN;
 
 extern SDL_Texture *background;
 

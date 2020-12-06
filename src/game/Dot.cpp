@@ -40,14 +40,10 @@ void Dot::move(SDL_Rect &p1, SDL_Rect &p2) {
 
     if ((collisionDetector(dotCollider, p1) && collisionLeftRight(dotCollider, p1)) ||
         (collisionDetector(dotCollider, p2) && collisionLeftRight(dotCollider, p2))) {
-        std::cout << velX << "," << velY << "\n";
         velX = -1 * velX;
-        std::cout << velX << "," << velY << "\n";
     } else if ((collisionDetector(dotCollider, p1) && collisionTopBottom(dotCollider, p1)) ||
                (collisionDetector(dotCollider, p2) && collisionTopBottom(dotCollider, p2))) {
-        std::cout << velX << "," << velY << "\n";
         velY = -1 * velY;
-        std::cout << velX << "," << velY << "\n";
     }
     if(posX < 15){
         profile1.points -=1;

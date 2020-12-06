@@ -33,11 +33,19 @@ void Game::handleEvent(SDL_Event * e, bool * isScene) {
     plank2.move();
     dot.move(plank1.plankCollider, plank2.plankCollider);
 
-    renderText(profile1.name, 20, 5, CLR_WHITE);
-    renderText(profile1.points, 20, 30, CLR_WHITE);
+    SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255); // the rect color (solid red)
+    SDL_Rect rect; // the rectangle
+    rect.x = SCREEN_WIDTH / 2 - 100;
+    rect.y = 0;
+    rect.w = 200;
+    rect.h = 60;
+    SDL_RenderFillRect(gRenderer, &rect);
 
-    renderText(profile2.name, SCREEN_WIDTH - 100, 5, CLR_WHITE);
-    renderText(profile2.points, SCREEN_WIDTH - 100, 30, CLR_WHITE);
+    renderText(profile1.name, SCREEN_WIDTH / 2 - 100, 5, CLR_WHITE);
+    renderText(profile1.points, SCREEN_WIDTH / 2 - 100, 30, CLR_WHITE);
+
+    renderText(profile2.name, SCREEN_WIDTH / 2, 5, CLR_WHITE);
+    renderText(profile2.points, SCREEN_WIDTH / 2, 30, CLR_WHITE);
 
     plank1.render();
     plank2.render();

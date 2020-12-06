@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-void inputName(const std::string& label, Profile* profile) {
+void inputName(std::string label, Profile* profile) {
     bool isLoop = true;
     int width, height;
     SDL_Event e;
@@ -25,15 +25,12 @@ void inputName(const std::string& label, Profile* profile) {
                     break;
             }
         }
-
+        SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
         SDL_RenderClear(gRenderer);
-
-        drawBackground();
-
-        renderText(label, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 60, CLR_WHITE);
+        renderText(label, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 60, CLR_ORANGE);
         if ( !profile->name.empty() ) {
             width = SCREEN_WIDTH, height = SCREEN_HEIGHT;
-            SDL_Surface *surfaceGroup = TTF_RenderUTF8_Solid(font25, profile->name.c_str(), CLR_WHITE);
+            SDL_Surface *surfaceGroup = TTF_RenderUTF8_Solid(font25, profile->name.c_str(), CLR_BLACK);
             SDL_Texture *texture = SDL_CreateTextureFromSurface(gRenderer, surfaceGroup);
             SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
             SDL_Rect rectGroup = {SCREEN_WIDTH / 2 - width / 2, SCREEN_HEIGHT / 2 - height / 2, width, height};

@@ -15,10 +15,6 @@ void renderText(const std::string& text, int x, int y, SDL_Color colorGroup, TTF
     SDL_FreeSurface(surfaceGroup);
 }
 
-void renderText(const std::string& text, int x, int y, SDL_Color colorGroup) {
-    renderText(text, x, y, colorGroup, font25);
-}
-
 void renderText(int text, int x, int y, SDL_Color colorGroup, TTF_Font *font) {
     std::stringstream strm;
     strm << text;
@@ -26,6 +22,10 @@ void renderText(int text, int x, int y, SDL_Color colorGroup, TTF_Font *font) {
 }
 
 void renderText(int text, int x, int y, SDL_Color colorGroup) {
+    renderText(text, x, y, colorGroup, font25);
+}
+
+void renderText(const std::string& text, int x, int y, SDL_Color colorGroup) {
     renderText(text, x, y, colorGroup, font25);
 }
 
