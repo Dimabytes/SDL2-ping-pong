@@ -16,15 +16,18 @@ void Profile::initRecord() {
     std::string content( (std::istreambuf_iterator<char>(ifs) ),
                          (std::istreambuf_iterator<char>()    ) );
     ifs.close();
-    size_t found = content.find(name);
+    std::string nameToSearch = name;
+    nameToSearch.insert(0, "__");
+    nameToSearch.append("__");
+    size_t found = content.find(nameToSearch);
 
     if (found != std::string::npos){
-        record = std::stoi(content.substr(found + name.length() + 1, content.substr(found + name.length()).find('\n') - 1));
+        record = std::stoi(content.substr(found + nameToSearch.length() + 1, content.substr(found + nameToSearch.length()).find('\n') - 1));
     } else {
         std::ofstream out;
         out.open("records.txt", std::ios::app);
-        out << "\n" << name << " 0";
-        out.close(); // закрываем файл
+        out << "\n" << nameToSearch << " 0";
+        out.close();
     }
 }
 
@@ -33,11 +36,14 @@ void Profile::updateRecord(int newRecord) {
     std::ifstream ifs("records.txt");
     std::string content( (std::istreambuf_iterator<char>(ifs) ),
                          (std::istreambuf_iterator<char>()    ) );
-    size_t found = content.find(name);
+    std::string nameToSearch = name;
+    nameToSearch.insert(0, "__");
+    nameToSearch.append("__");
+    size_t found = content.find(nameToSearch);
     if (found != std::string::npos){
-        content = content.replace(found + name.length() + 1, content.substr(found + name.length()).find('\n') - 1, std::to_string(record));
+        content = content.replace(found + nameToSearch.length() + 1, content.substr(found + nameToSearch.length()).find('\n') - 1, std::to_string(record));
         std::ofstream out("records.txt");
         out << content;
-        out.close(); // закрываем файл
+        out.close();
     }
 }

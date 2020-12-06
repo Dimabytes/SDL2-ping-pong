@@ -8,6 +8,7 @@
 #include "utils.h"
 #include "choiceBackground/choiceBackground.h"
 #include "rules/rules.h"
+#include "records/records.h"
 #include "login.h"
 
 void close() {
@@ -33,6 +34,7 @@ int showmenu() {
 
     Game game;
     ChoiceBackground choiceBackground;
+    Records records;
 
     for (int i = 0; i < NUMMENU; ++i) {
         menus[i] = TTF_RenderUTF8_Solid(font25, labels[i], color[0]);
@@ -57,14 +59,19 @@ int showmenu() {
                 rulesHandleEvent(event, &selected[i]);
                 break;
             }
-            if(selected[i] && i == 3){
-                game.handleEvent(&event, &selected[i]);
+            if(selected[i] && i == 1){
+                records.handleEvent(event, &selected[i]);
                 break;
             }
             if(selected[i] && i == 2){
                 choiceBackground.handleEvent(event, &selected[i]);
                 break;
             }
+            if(selected[i] && i == 3){
+                game.handleEvent(&event, &selected[i]);
+                break;
+            }
+
         }
         isMenu = true;
         for(bool i : selected){
@@ -109,7 +116,9 @@ int showmenu() {
                         if (x >= pos[i].x && x <= pos[i].x + pos[i].w &&
                             y >= pos[i].y && y <= pos[i].y + pos[i].h) {
                             selected[i] = true;
-
+                            if(i == 1){
+                                records.restart();
+                            }
                             if(i == 3){
                                 game.restart();
                             }
