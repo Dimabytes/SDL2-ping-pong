@@ -7,7 +7,7 @@
 
 class Dot {
 public:
-    static const int width = 20, height = 20;
+    static const int width = 30, height = 30;
 
     LTexture gDotTexture;
 
@@ -20,7 +20,10 @@ public:
 
     bool init();
 
-    void move(SDL_Rect &p1, SDL_Rect &p2);
+    void move(SDL_Rect &p1, SDL_Rect &p2, bool* isDot2);
+
+    void randomEvent(bool* isDot2);
+
 
     void render();
 

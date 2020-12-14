@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include "../backButton.h"
 #include "SDL.h"
 
 #ifndef PINGPONG_RECORDS_H
@@ -9,7 +10,7 @@
 
 class Records {
     std::vector<std::pair<std::string, int>> players;
-
+    BackButton backButton;
     int playersQuantity = 0;
 public:
     void restart();

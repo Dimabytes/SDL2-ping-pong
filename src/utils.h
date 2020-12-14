@@ -1,6 +1,7 @@
 #include "SDL_ttf.h"
 #ifndef PINGPONG_UTILS_H
 #define PINGPONG_UTILS_H
+#include <string>
 
 void renderText(const std::string& text, int x, int y, SDL_Color colorGroup, TTF_Font *font);
 

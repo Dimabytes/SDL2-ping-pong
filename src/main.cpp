@@ -25,7 +25,7 @@ int showmenu() {
     const int NUMMENU = 4;
     int width = SCREEN_WIDTH, height = SCREEN_HEIGHT;
 
-    const char *labels[NUMMENU] = {"Правила игры", "Рекорды", "Смена заднего фона", "Играть"};
+    const char *labels[NUMMENU] = {"Играть", "Рекорды", "Смена заднего фона", "Правила игры"};
     SDL_Surface *menus[NUMMENU];
     bool hovered[NUMMENU] = {false, false, false, false};
     bool selected[NUMMENU] = {false, false, false, false};
@@ -35,6 +35,7 @@ int showmenu() {
     Game game;
     ChoiceBackground choiceBackground;
     Records records;
+    Rules rules;
 
     for (int i = 0; i < NUMMENU; ++i) {
         menus[i] = TTF_RenderUTF8_Solid(font25, labels[i], color[0]);
@@ -56,7 +57,7 @@ int showmenu() {
         }
         for (int i = 0; i < NUMMENU; ++i) {
             if(selected[i] && i == 0){
-                rulesHandleEvent(event, &selected[i]);
+                game.handleEvent(event, &selected[i]);
                 break;
             }
             if(selected[i] && i == 1){
@@ -68,7 +69,7 @@ int showmenu() {
                 break;
             }
             if(selected[i] && i == 3){
-                game.handleEvent(&event, &selected[i]);
+                rules.handleEvent(event, &selected[i]);
                 break;
             }
 
@@ -116,11 +117,11 @@ int showmenu() {
                         if (x >= pos[i].x && x <= pos[i].x + pos[i].w &&
                             y >= pos[i].y && y <= pos[i].y + pos[i].h) {
                             selected[i] = true;
+                            if(i == 0){
+                                game.restart();
+                            }
                             if(i == 1){
                                 records.restart();
-                            }
-                            if(i == 3){
-                                game.restart();
                             }
                         }
                     }

@@ -60,10 +60,12 @@ void ChoiceBackground::handleEvent(SDL_Event e, bool *isScene) {
                     *isScene = false;
                 }
         }
+        backButton.handleEvent(e, isScene);
     }
 
     SDL_RenderClear(gRenderer);
     drawBackground();
+    backButton.render();
     for (int i = 0; i < NUMMENU; i += 1) {
         SDL_Texture *texture = SDL_CreateTextureFromSurface(gRenderer, menus[i]);
         SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);

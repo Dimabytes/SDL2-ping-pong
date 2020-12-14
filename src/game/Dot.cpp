@@ -7,7 +7,7 @@
 #define DOT_H
 
 Dot::Dot() {
-    posX = 50;
+    posX = SCREEN_WIDTH / 2;
     posY = 50;
 
     dotCollider.w = width;
@@ -19,13 +19,40 @@ Dot::Dot() {
 
 bool Dot::init() {
     gDotTexture.loadFromFile("img/dot.png", gRenderer);
-    gDotTexture.mWidth = 30;
-    gDotTexture.mHeight = 30;
+    gDotTexture.mWidth = width;
+    gDotTexture.mHeight = width;
     return true;
 
 }
 
-void Dot::move(SDL_Rect &p1, SDL_Rect &p2) {
+void Dot::randomEvent(bool* isDot2) {
+    double randNumber = ((double) rand() / (RAND_MAX));
+
+    if(randNumber < 0.1){
+        dotCollider.w = 50;
+        dotCollider.h = 50;
+        gDotTexture.mWidth = 50;
+        gDotTexture.mHeight = 50;
+    }
+
+    if(randNumber >= 0.1 && randNumber < 0.2){
+        dotCollider.w = 15;
+        dotCollider.h = 15;
+        gDotTexture.mWidth = 15;
+        gDotTexture.mHeight = 15;
+    }
+
+    if(randNumber >= 0.2 && randNumber < 0.3){
+        velX *= 2;
+        velY *= 2;
+    }
+
+    if(randNumber >= 0.3 && randNumber < 0.4){
+       *isDot2 = true;
+    }
+}
+
+void Dot::move(SDL_Rect &p1, SDL_Rect &p2, bool* isDot2) {
     posY = posY + velY;
     dotCollider.y = posY;
     posX = posX + velX;
@@ -38,11 +65,14 @@ void Dot::move(SDL_Rect &p1, SDL_Rect &p2) {
         velY = -1 * velY;
     }
 
+
     if ((collisionDetector(dotCollider, p1) && collisionLeftRight(dotCollider, p1)) ||
         (collisionDetector(dotCollider, p2) && collisionLeftRight(dotCollider, p2))) {
+        this->randomEvent(isDot2);
         velX = -1 * velX;
     } else if ((collisionDetector(dotCollider, p1) && collisionTopBottom(dotCollider, p1)) ||
                (collisionDetector(dotCollider, p2) && collisionTopBottom(dotCollider, p2))) {
+        this->randomEvent(isDot2);
         velY = -1 * velY;
     }
     if(posX < 15){
@@ -52,6 +82,12 @@ void Dot::move(SDL_Rect &p1, SDL_Rect &p2) {
         profile2.points -=1;
     }
     if (posX < 15 || posX > SCREEN_WIDTH - 35) {
+        dotCollider.w = 30;
+        dotCollider.h = 30;
+        gDotTexture.mWidth = 30;
+        gDotTexture.mHeight = 30;
+       *isDot2 = false;
+
         posX = SCREEN_WIDTH / 2;
         posY = rand() % SCREEN_HEIGHT;
         int z = rand() % 4;

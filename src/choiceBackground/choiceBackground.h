@@ -1,5 +1,6 @@
 #include "SDL.h"
 #include "../globals.h"
+#include "../backButton.h"
 
 #ifndef PINGPONG_CHOICEBACKGROUND_H
 #define PINGPONG_CHOICEBACKGROUND_H
@@ -14,6 +15,8 @@ class ChoiceBackground {
     SDL_Color color[2] = {CLR_WHITE, CLR_GREEN};
     SDL_Surface *menus[NUMMENU]{};
     SDL_Rect pos[NUMMENU]{};
+
+    BackButton backButton;
     public:
 
     ChoiceBackground();

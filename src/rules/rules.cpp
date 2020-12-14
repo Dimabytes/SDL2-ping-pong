@@ -1,18 +1,20 @@
 #include "rules.h"
 #include "SDL.h"
-#include <string>
 #include "../utils.h"
 #include "../globals.h"
 
-void rulesHandleEvent(SDL_Event e, bool *isScene){
+void Rules::handleEvent(SDL_Event e, bool *isScene){
     while (SDL_PollEvent(&e)) {
         if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){
             *isScene = false;
             break;
         }
+        backButton.handleEvent(e, isScene);
     }
     SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
     SDL_RenderClear(gRenderer);
+
+    backButton.render();
 
     renderText("Правила игры Пинг Понг", SCREEN_WIDTH / 2 - 120, 20, CLR_ORANGE);
 
@@ -28,4 +30,11 @@ void rulesHandleEvent(SDL_Event e, bool *isScene){
 
     renderText("Игра заканивается после потрери всез очков игроком", 20, 210, CLR_ORANGE, font15);
 
+    renderText("Бонусы", SCREEN_WIDTH / 2 - 70, 240, CLR_ORANGE);
+
+    renderText("После того, как шар отскакивает от поверхности,", 20, 280, CLR_ORANGE, font15);
+
+    renderText("срабатывает один из бонусов:", 20, 310, CLR_ORANGE, font15);
+
+    renderText("Раздвоение, увеличение, уменьшение, ускорение", 20, 340, CLR_ORANGE, font15);
 }

@@ -34,13 +34,19 @@ void Records::handleEvent(SDL_Event e, bool *isScene) {
             *isScene = false;
             break;
         }
+        backButton.handleEvent(e, isScene);
     }
     SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
     SDL_RenderClear(gRenderer);
-
+    renderText("Разница побед и поражений", SCREEN_WIDTH / 2 - 180, 0, CLR_ORANGE);
+    backButton.render();
+    SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, 255);
+    SDL_RenderDrawLine(gRenderer, 280, 60, 280, 60 + playersQuantity * 40);
     for(int i = 0; i < playersQuantity; i++){
-        renderText(players[i].first, 30, 20 + i * 45, CLR_ORANGE);
-        renderText(players[i].second, 300, 20 + i * 45, CLR_ORANGE);
+        SDL_RenderDrawLine(gRenderer, 0, 60 + i * 40, SCREEN_WIDTH, 60 + i * 40);
+        renderText(players[i].first, 30, 60 + i * 40, CLR_ORANGE);
+        renderText(players[i].second, 300, 60 + i * 40, CLR_ORANGE);
     }
+    SDL_RenderDrawLine(gRenderer, 0, 60 + playersQuantity * 40, SCREEN_WIDTH, 60 + playersQuantity * 40);
 
 }
