@@ -1,16 +1,13 @@
 #include "SDL.h"
-#include "../backButton.h"
 #ifndef PINGPONG_RULES_H
 #define PINGPONG_RULES_H
+#include "../MenuItem.h"
 
-void rulesHandleEvent(SDL_Event e, bool *isScene);
-
-class Rules {
-    BackButton backButton;
+class Rules: MenuItem {
 public:
     Rules()=default;
 
-    void handleEvent(SDL_Event e, bool * isScene);
+    void handleEvent(SDL_Event e, bool * isScene) override;
 };
 
 #endif //PINGPONG_RULES_H

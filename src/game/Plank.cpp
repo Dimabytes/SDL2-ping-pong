@@ -6,7 +6,6 @@
 Plank::Plank(int x, int y) {
     posX = x;
     posY = y;
-    velX = 0;
     velY = 0;
 
     plankCollider.x = x;

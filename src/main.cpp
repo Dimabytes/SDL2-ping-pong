@@ -19,7 +19,7 @@ void close() {
     SDL_Quit();
 }
 
-int showmenu() {
+void showmenu() {
     int x, y;
     bool isMenu;
     const int NUMMENU = 4;
@@ -53,7 +53,7 @@ int showmenu() {
                     SDL_FreeSurface(menu);
                 }
                 close();
-                return 1;
+                return;
         }
         for (int i = 0; i < NUMMENU; ++i) {
             if(selected[i] && i == 0){
@@ -132,7 +132,7 @@ int showmenu() {
                             SDL_FreeSurface(menu);
                         }
                         close();
-                        return 1;
+                        return;
                     }
             }
         }

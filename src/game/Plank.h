@@ -9,7 +9,7 @@ public:
     static const int plankVel = 10;
 
     int posX, posY;
-    int velX, velY;
+    int velY;
 
     SDL_Rect plankCollider;
 
